@@ -40,7 +40,7 @@ const MainLayout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F4F8] dark:bg-[#0C0C10] text-[#17171D] dark:text-[#F0EFF4] bg-grid-editorial transition-colors duration-200">
+    <div className="min-h-screen text-[#17171D] dark:text-[#F0EFF4] transition-colors duration-200">
       {/* Global Navigation */}
       <Sidebar />
       <Header />
@@ -72,3 +72,4 @@ export default function App() {
     </TaskProvider>
   );
 }
+

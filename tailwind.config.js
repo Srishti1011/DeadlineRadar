@@ -9,7 +9,7 @@ export default {
     extend: {
       colors: {
         radar: {
-          bg: '#F5F4F8',
+          bg: '#F2F0F7',
           card: '#FFFFFF',
           text: '#17171D',
           muted: '#777780',
@@ -78,3 +78,4 @@ export default {
   },
   plugins: [],
 }
+

@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --bg-main: #F5F4F8;
+    --bg-main: #F2F0F7;
     --card-bg: #FFFFFF;
     --text-primary: #17171D;
     --text-secondary: #777780;
@@ -12,7 +12,7 @@
   }
 
   .dark {
-    --bg-main: #0C0C10;
+    --bg-main: #0E0E14;
     --card-bg: #15151C;
     --text-primary: #F0EFF4;
     --text-secondary: #908FA0;
@@ -20,25 +20,26 @@
   }
 
   body {
-    background-color: var(--bg-main);
+    background-color: #F2F0F7;
+    background-image:
+      linear-gradient(rgba(90, 85, 120, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(90, 85, 120, 0.055) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: fixed;
     color: var(--text-primary);
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
+    min-height: 100vh;
   }
-}
 
-/* Subtle architectural grid pattern */
-.bg-grid-editorial {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(140, 140, 160, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(140, 140, 160, 0.05) 1px, transparent 1px);
-}
-
-.dark .bg-grid-editorial {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  .dark body {
+    background-color: #0E0E14;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: fixed;
+  }
 }
 
 /* Custom subtle scrollbar */
@@ -52,12 +53,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(140, 140, 160, 0.2);
+  background: rgba(140, 140, 160, 0.25);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(140, 140, 160, 0.35);
+  background: rgba(140, 140, 160, 0.4);
 }
 
 /* Soft transition for theme */
@@ -107,3 +108,4 @@
 .animate-pulse-subtle {
   animation: pulseSubtle 2s infinite ease-in-out;
 }
+

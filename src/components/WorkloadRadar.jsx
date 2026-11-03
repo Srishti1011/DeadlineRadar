@@ -7,7 +7,8 @@ import {
   CheckCircle2,
   Clock,
   Sparkles,
-  Plus
+  Plus,
+  Check
 } from 'lucide-react';
 import { calculateWeeklyWorkload } from '../utils/workloadUtils';
 import { useTaskContext } from '../context/TaskContext';
@@ -211,16 +212,20 @@ export const WorkloadRadar = () => {
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <button
-                    onClick={() => toggleTaskComplete(task.id)}
-                    className="shrink-0 text-gray-400 hover:text-emerald-500 transition-colors"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleTaskComplete(task.id);
+                    }}
+                    aria-label={task.completed ? 'Mark task as pending' : 'Mark task as completed'}
+                    title={task.completed ? 'Completed (click to reopen)' : 'Click to mark as completed'}
+                    className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all shrink-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                      task.completed
+                        ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs hover:bg-emerald-700'
+                        : 'border-[#B8B6C7] dark:border-[#4B4B5E] bg-white dark:bg-[#181822] hover:border-emerald-500 hover:bg-emerald-50/40 text-transparent'
+                    }`}
                   >
-                    <CheckCircle2
-                      className={`w-5 h-5 ${
-                        task.completed
-                          ? 'text-emerald-500 fill-emerald-100 dark:fill-emerald-950'
-                          : 'text-[#9B9BA7]'
-                      }`}
-                    />
+                    <Check className={`w-3.5 h-3.5 stroke-[3] transition-transform ${task.completed ? 'scale-100' : 'scale-0'}`} />
                   </button>
 
                   <div
@@ -275,3 +280,4 @@ export const WorkloadRadar = () => {
     </div>
   );
 };
+

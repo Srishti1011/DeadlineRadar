@@ -350,18 +350,22 @@ export const CalendarView = () => {
                   key={task.id}
                   className="p-3 rounded-xl bg-[#FAF9FC] dark:bg-[#191924] border border-[#E7E5EC] dark:border-[#252535] hover:border-purple-300 transition-colors"
                 >
-                  <div className="flex items-start gap-2">
+                  <div className="flex items-start gap-2.5">
                     <button
-                      onClick={() => toggleTaskComplete(task.id)}
-                      className="mt-0.5 text-[#9B9BA7] hover:text-emerald-500"
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleTaskComplete(task.id);
+                      }}
+                      aria-label={task.completed ? 'Mark task as pending' : 'Mark task as completed'}
+                      title={task.completed ? 'Completed (click to reopen)' : 'Click to mark as completed'}
+                      className={`w-4 h-4 mt-0.5 rounded-[5px] border flex items-center justify-center transition-all shrink-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                        task.completed
+                          ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs hover:bg-emerald-700'
+                          : 'border-[#B8B6C7] dark:border-[#4B4B5E] bg-white dark:bg-[#181822] hover:border-emerald-500 hover:bg-emerald-50/40 text-transparent'
+                      }`}
                     >
-                      <CheckCircle2
-                        className={`w-4 h-4 ${
-                          task.completed
-                            ? 'text-emerald-500 fill-emerald-100 dark:fill-emerald-950'
-                            : ''
-                        }`}
-                      />
+                      <Check className={`w-3 h-3 stroke-[3] transition-transform ${task.completed ? 'scale-100' : 'scale-0'}`} />
                     </button>
                     <div
                       onClick={() => openTaskDetail(task)}
@@ -370,7 +374,7 @@ export const CalendarView = () => {
                       <div
                         className={`text-xs font-bold truncate ${
                           task.completed
-                            ? 'line-through text-[#9B9BA7] dark:text-[#676778]'
+                            ? 'line-through text-[#8C8C9A] dark:text-[#676778]'
                             : 'text-[#17171D] dark:text-white'
                         }`}
                       >
@@ -396,3 +400,4 @@ export const CalendarView = () => {
     </div>
   );
 };
+

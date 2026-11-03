@@ -214,3 +214,4 @@ export const INITIAL_SETTINGS = {
     dailyDigest: true
   }
 };
+

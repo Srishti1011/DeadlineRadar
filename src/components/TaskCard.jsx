@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
+  Check,
   CheckCircle2,
   Clock,
   MoreVertical,
@@ -99,8 +100,12 @@ export const TaskCard = ({ task, compact = false }) => {
 
   return (
     <div
-      className={`group relative rounded-2xl bg-white dark:bg-[#15151C] border border-[#E7E5EC] dark:border-[#242432] card-shadow card-hover transition-all
-        ${task.completed ? 'opacity-70 dark:opacity-60 bg-gray-50/50 dark:bg-[#121217]' : ''}
+      className={`group relative rounded-2xl bg-white dark:bg-[#15151C] border card-shadow card-hover transition-all
+        ${
+          task.completed
+            ? 'opacity-80 dark:opacity-75 bg-[#FAF9FD]/80 dark:bg-[#13131A] border-[#DCD9E6] dark:border-[#272738]'
+            : 'border-[#E7E5EC] dark:border-[#242432]'
+        }
         ${compact ? 'p-3.5' : 'p-4 sm:p-5'}
       `}
     >
@@ -115,6 +120,11 @@ export const TaskCard = ({ task, compact = false }) => {
           <span className="text-[11px] font-semibold text-[#777780] dark:text-[#908FA0] truncate max-w-[140px] sm:max-w-[200px]">
             {task.subjectName || 'General'}
           </span>
+          {task.completed && (
+            <span className="px-1.5 py-0.5 rounded text-[9.5px] font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+              Completed
+            </span>
+          )}
         </div>
 
         {/* Priority & Dropdown Menu */}
@@ -197,20 +207,23 @@ export const TaskCard = ({ task, compact = false }) => {
         </div>
       </div>
 
-      {/* Task Title & Quick Complete */}
+      {/* Task Title & Visible Completion Checkbox */}
       <div className="flex items-start gap-3">
         <button
-          onClick={() => toggleTaskComplete(task.id)}
-          className="mt-0.5 shrink-0 text-gray-400 hover:text-emerald-500 transition-colors"
-          title={task.completed ? 'Mark pending' : 'Mark completed'}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleTaskComplete(task.id);
+          }}
+          aria-label={task.completed ? 'Mark task as pending' : 'Mark task as completed'}
+          title={task.completed ? 'Completed (click to undo and reopen)' : 'Click to mark as completed'}
+          className={`w-5 h-5 mt-0.5 rounded-md border flex items-center justify-center transition-all shrink-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 ${
+            task.completed
+              ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs hover:bg-emerald-700 hover:border-emerald-700'
+              : 'border-[#B8B6C7] dark:border-[#4B4B5E] bg-white dark:bg-[#181822] hover:border-emerald-500 hover:bg-emerald-50/40 dark:hover:bg-emerald-950/20 text-transparent'
+          }`}
         >
-          <CheckCircle2
-            className={`w-5 h-5 transition-transform group-hover:scale-105 ${
-              task.completed
-                ? 'text-emerald-500 fill-emerald-100 dark:fill-emerald-950'
-                : 'text-[#B0B0BE] dark:text-[#555566]'
-            }`}
-          />
+          <Check className={`w-3.5 h-3.5 stroke-[3] transition-transform ${task.completed ? 'scale-100' : 'scale-0'}`} />
         </button>
 
         <div
@@ -218,15 +231,23 @@ export const TaskCard = ({ task, compact = false }) => {
           className="flex-1 min-w-0 cursor-pointer"
         >
           <h4
-            className={`text-sm font-bold tracking-tight text-[#17171D] dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors ${
-              task.completed ? 'line-through text-[#9B9BA7] dark:text-[#676778]' : ''
+            className={`text-sm font-bold tracking-tight transition-colors ${
+              task.completed
+                ? 'line-through text-[#8C8C9A] dark:text-[#676778]'
+                : 'text-[#17171D] dark:text-white hover:text-purple-600 dark:hover:text-purple-400'
             }`}
           >
             {task.title}
           </h4>
 
           {task.description && !compact && (
-            <p className="text-xs text-[#777780] dark:text-[#908FA0] line-clamp-2 mt-1 leading-relaxed">
+            <p
+              className={`text-xs mt-1 leading-relaxed ${
+                task.completed
+                  ? 'text-[#9B9BA7] dark:text-[#5B5B6D] line-clamp-1'
+                  : 'text-[#777780] dark:text-[#908FA0] line-clamp-2'
+              }`}
+            >
               {task.description}
             </p>
           )}
@@ -259,3 +280,4 @@ export const TaskCard = ({ task, compact = false }) => {
     </div>
   );
 };
+

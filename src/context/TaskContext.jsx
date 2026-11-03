@@ -134,10 +134,12 @@ export const TaskProvider = ({ children }) => {
 
   const toggleTaskComplete = (id) => {
     let nowCompleted = false;
+    let targetTitle = '';
     setTasks((prev) =>
       prev.map((t) => {
         if (t.id === id) {
           nowCompleted = !t.completed;
+          targetTitle = t.title;
           return {
             ...t,
             completed: nowCompleted,
@@ -148,11 +150,19 @@ export const TaskProvider = ({ children }) => {
       })
     );
 
+    if (viewingTask && viewingTask.id === id) {
+      setViewingTask((prev) => ({
+        ...prev,
+        completed: nowCompleted,
+        completedAt: nowCompleted ? getTodayISO() : null
+      }));
+    }
+
     if (nowCompleted) {
       triggerConfetti();
-      showToast('Task marked as completed! Keep up the momentum.', 'success');
+      showToast(`Completed: "${targetTitle || 'Task'}"! Great job.`, 'success');
     } else {
-      showToast('Task marked as pending.', 'info');
+      showToast(`Reopened: "${targetTitle || 'Task'}" marked as pending.`, 'info');
     }
   };
 
@@ -403,3 +413,4 @@ export const TaskProvider = ({ children }) => {
     </TaskContext.Provider>
   );
 };
+

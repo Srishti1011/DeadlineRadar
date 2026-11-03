@@ -146,3 +146,4 @@ export const NotificationPanel = ({ isOpen, onClose }) => {
     </div>
   );
 };
+

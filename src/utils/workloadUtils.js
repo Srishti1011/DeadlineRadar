@@ -274,3 +274,4 @@ export const generateWorkloadInsights = (tasks, subjects = []) => {
 
   return insights;
 };
+

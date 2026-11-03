@@ -218,16 +218,32 @@ export const Dashboard = () => {
                 >
                   <div className="flex items-start gap-2.5">
                     <button
-                      onClick={() => toggleTaskComplete(task.id)}
-                      className="mt-0.5 shrink-0 text-[#9B9BA7] hover:text-emerald-500 transition-colors"
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleTaskComplete(task.id);
+                      }}
+                      aria-label={task.completed ? 'Mark task as pending' : 'Mark task as completed'}
+                      title={task.completed ? 'Completed (click to reopen)' : 'Click to mark as completed'}
+                      className={`w-5 h-5 mt-0.5 rounded-md border flex items-center justify-center transition-all shrink-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                        task.completed
+                          ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs hover:bg-emerald-700'
+                          : 'border-[#B8B6C7] dark:border-[#4B4B5E] bg-white dark:bg-[#181822] hover:border-emerald-500 hover:bg-emerald-50/40 text-transparent'
+                      }`}
                     >
-                      <CheckCircle2 className="w-4 h-4" />
+                      <Check className={`w-3.5 h-3.5 stroke-[3] transition-transform ${task.completed ? 'scale-100' : 'scale-0'}`} />
                     </button>
                     <div
                       onClick={() => openTaskDetail(task)}
                       className="flex-1 min-w-0 cursor-pointer"
                     >
-                      <div className="text-xs font-bold text-[#17171D] dark:text-white truncate">
+                      <div
+                        className={`text-xs font-bold truncate ${
+                          task.completed
+                            ? 'line-through text-[#8C8C9A] dark:text-[#676778]'
+                            : 'text-[#17171D] dark:text-white'
+                        }`}
+                      >
                         {task.title}
                       </div>
                       <div className="flex items-center gap-2 text-[10.5px] text-[#777780] dark:text-[#908FA0] mt-1">
@@ -365,23 +381,52 @@ export const Dashboard = () => {
               upcomingDeadlines.map((task) => (
                 <div
                   key={task.id}
-                  onClick={() => openTaskDetail(task)}
-                  className="p-3 rounded-xl bg-[#FAF9FC] dark:bg-[#191924] border border-[#E7E5EC] dark:border-[#252535] hover:border-purple-300 dark:hover:border-purple-700 transition-colors cursor-pointer group"
+                  className="p-3 rounded-xl bg-[#FAF9FC] dark:bg-[#191924] border border-[#E7E5EC] dark:border-[#252535] hover:border-purple-300 dark:hover:border-purple-700 transition-colors group"
                 >
-                  <div className="flex items-center justify-between gap-2 mb-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">
-                      {task.category}
-                    </span>
-                    <span className="text-[10px] font-mono font-semibold text-[#777780] dark:text-[#908FA0]">
-                      {formatDisplayDate(task.dueDate)}
-                    </span>
-                  </div>
-                  <h4 className="text-xs font-bold text-[#17171D] dark:text-white truncate group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-                    {task.title}
-                  </h4>
-                  <div className="flex items-center justify-between mt-1 text-[10px] text-[#777780] dark:text-[#908FA0]">
-                    <span className="truncate">{task.subjectName}</span>
-                    <span className="capitalize">{task.priority}</span>
+                  <div className="flex items-start gap-2.5">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleTaskComplete(task.id);
+                      }}
+                      aria-label={task.completed ? 'Mark task as pending' : 'Mark task as completed'}
+                      title={task.completed ? 'Completed (click to reopen)' : 'Click to mark as completed'}
+                      className={`w-4 h-4 mt-0.5 rounded-[5px] border flex items-center justify-center transition-all shrink-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                        task.completed
+                          ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs hover:bg-emerald-700'
+                          : 'border-[#B8B6C7] dark:border-[#4B4B5E] bg-white dark:bg-[#181822] hover:border-emerald-500 hover:bg-emerald-50/40 text-transparent'
+                      }`}
+                    >
+                      <Check className={`w-3 h-3 stroke-[3] transition-transform ${task.completed ? 'scale-100' : 'scale-0'}`} />
+                    </button>
+
+                    <div
+                      onClick={() => openTaskDetail(task)}
+                      className="flex-1 min-w-0 cursor-pointer"
+                    >
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">
+                          {task.category}
+                        </span>
+                        <span className="text-[10px] font-mono font-semibold text-[#777780] dark:text-[#908FA0]">
+                          {formatDisplayDate(task.dueDate)}
+                        </span>
+                      </div>
+                      <h4
+                        className={`text-xs font-bold truncate transition-colors ${
+                          task.completed
+                            ? 'line-through text-[#8C8C9A] dark:text-[#676778]'
+                            : 'text-[#17171D] dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400'
+                        }`}
+                      >
+                        {task.title}
+                      </h4>
+                      <div className="flex items-center justify-between mt-1 text-[10px] text-[#777780] dark:text-[#908FA0]">
+                        <span className="truncate">{task.subjectName}</span>
+                        <span className="capitalize">{task.priority}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))
@@ -392,3 +437,4 @@ export const Dashboard = () => {
     </div>
   );
 };
+

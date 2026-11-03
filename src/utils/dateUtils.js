@@ -275,3 +275,4 @@ export const getMonthGrid = (year, monthIndex) => {
 
   return cells;
 };
+
