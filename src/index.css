@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-main: #F5F4F8;
+    --card-bg: #FFFFFF;
+    --text-primary: #17171D;
+    --text-secondary: #777780;
+    --border-color: #E7E5EC;
+  }
+
+  .dark {
+    --bg-main: #0C0C10;
+    --card-bg: #15151C;
+    --text-primary: #F0EFF4;
+    --text-secondary: #908FA0;
+    --border-color: #242432;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Subtle architectural grid pattern */
+.bg-grid-editorial {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(140, 140, 160, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(140, 140, 160, 0.05) 1px, transparent 1px);
+}
+
+.dark .bg-grid-editorial {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(140, 140, 160, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 140, 160, 0.35);
+}
+
+/* Soft transition for theme */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modal and card floating shadows */
+.card-shadow {
+  box-shadow: 0 4px 20px -2px rgba(23, 23, 29, 0.04), 0 1px 3px -1px rgba(23, 23, 29, 0.02);
+}
+
+.dark .card-shadow {
+  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.35);
+}
+
+.card-hover {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -6px rgba(23, 23, 29, 0.08), 0 2px 6px -1px rgba(23, 23, 29, 0.04);
+}
+
+.dark .card-hover:hover {
+  box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.5);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 2s infinite ease-in-out;
+}
