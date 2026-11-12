@@ -112,3 +112,18 @@ npm run preview
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
+### Testing
+
+```bash
+# Run the complete test suite once
+npm run test
+
+# Watch tests while developing
+npm run test:watch
+
+# Run tests and generate an HTML coverage report
+npm run test:coverage
+```
+
+Coverage reports are written to `coverage/`.
+
